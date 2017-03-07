@@ -3,12 +3,16 @@ module Main where
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
+import System.IO
+
 import Robot
 
 -- | The main event loop. Grab input from the user, parse it to an action
 -- run the action, validate the result and repeat.
 loop :: RobotState -> IO ()
 loop initialState = do
+  putStr "> "
+  hFlush stdout
   cmd <- T.stripEnd <$> T.getLine
   case parseCommand cmd of
     Nothing -> do
